@@ -35,7 +35,7 @@ class BagFilePatcher( object ):
         self._destFilepath   = destFilepath
 
     def patch( self ):
-        with rosbag.Bag( destFilename, 'w' ) as destBag:
+        with rosbag.Bag( self._destFilepath, 'w' ) as destBag:
             with rosbag.Bag( self._sourceFilepath, 'r' ) as sourceBag:
                 self._sourceBag = sourceBag
                 self._destBag   = destBag
