@@ -3,7 +3,7 @@ import roslib
 roslib.load_manifest( 'navigation_test' )
 import rospy, rosbag
 from rosbag.bag import ROSBagFormatException
-import sys, os
+import sys, os, tempfile, shutil
 
 
 class Message( object ):
@@ -33,6 +33,9 @@ class BagFilePatcher( object ):
     def __init__( self, sourceFilepath, destFilepath ):
         self._sourceFilepath = sourceFilepath
         self._destFilepath   = destFilepath
+        self._sameSourceAndDestination = destFilepath is None
+        if self._sameSourceAndDestination:
+            self._destFilepath = tempfile.mktemp()
 
     def patch( self ):
         with rosbag.Bag( self._destFilepath, 'w' ) as destBag:
@@ -41,6 +44,9 @@ class BagFilePatcher( object ):
                 self._destBag   = destBag
                 self._reader    = BagReader( sourceBag )
                 self._patchSourceBagFileToDestination()
+        if self._sameSourceAndDestination:
+            os.remove( self.sourceFilepath )
+            shutil.move( self._destFilepath, self._sourceFilepath )
 
     def _patchSourceBagFileToDestination( self ):
         finished = False
