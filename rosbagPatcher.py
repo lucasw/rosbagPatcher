@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import roslib
-roslib.load_manifest( 'navigation_test' )
+roslib.load_manifest( 'navigation_test_analysis' )
 import rospy, rosbag
 from rosbag.bag import ROSBagFormatException
 import sys, os, tempfile, shutil
