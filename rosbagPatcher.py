@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import roslib
-roslib.load_manifest( 'navigation_test_analysis' )
 import rospy, rosbag
 from rosbag.bag    import ROSBagFormatException
 from genpy.message import DeserializationError
